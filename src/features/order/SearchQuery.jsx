@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 
 function SearchQuery() {
+  const {orderId}=useParams()
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   function HandleSubmit(e) {
@@ -10,6 +11,10 @@ function SearchQuery() {
     if (!query) return;
     navigate(`/order/${query}`);
   }
+  useEffect(()=>{
+    if(orderId)
+       setQuery(orderId)
+  },[orderId])
   return (
     <form onSubmit={HandleSubmit} className="relative">
       <FaSearch className="absolute search top-2" />

@@ -44,7 +44,9 @@ function Order() {
         </h4>
         <h4>
           {deliveryIn > 0 ? (
-            `${calcMinutesLeft(estimatedDelivery)} minutes left`
+           <strong className="text-red-700 block text-center font-extrabold">
+             {calcMinutesLeft(estimatedDelivery)} minutes left
+           </strong>  
           ) : (
             <strong className="text-green-600 block text-center ">
               Order should have arrived 🍴
