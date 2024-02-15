@@ -36,7 +36,7 @@ function CreateOrder() {
                 <div className="m-3">
                     {/* <label className="block ">FullName</label> */}
                     <input type="text" name="customer" placeholder="Fullname" 
-                         className="w-full px-3 py-2 bg-transparent border-b "
+                         className="w-full px-3 py-2 bg-transparent border-b focus:outline-none focus:border-b-yellow-500 transition-colors duration-300 placeholder:text-sm placeholder:font-semibold focus:placeholder:text-[0px]"
                          required/>
                 </div>
                 <div  className="m-3">
@@ -49,8 +49,8 @@ function CreateOrder() {
                     <input type="text" name="address" placeholder="Address" className="p-2 bg-yellow-50 rounded w-full" required/>
                 </div>
                 <div className="flex items-center m-3 ">
-                    <input  id="red-checkbox" type="checkbox" className="w-6 h-6 " name="priority"/>
-                    <label htmlFor="red-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Want to yo give your order priority?</label>
+                    <input  id="red-checkbox" type="checkbox" className="w-6 h-6 inline-block border-2  accent-yellow-500 focus:outline-none " name="priority" />
+                    <label htmlFor="red-checkbox" className="ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">Want to yo give your order priority?</label>
                 </div>
                 <div className="text-center">
                     <input type="hidden" name="cart" value={JSON.stringify(cart)}/>
