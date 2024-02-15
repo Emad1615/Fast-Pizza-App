@@ -34,8 +34,10 @@ function CreateOrder() {
             <h3 className="text-2xl font-semibold text-center mt-5 text-yellow-700">Ready to order ?<br/> Let's go 🍕</h3>
             <Form method="POST" className="lg:w-1/2 sm:w-full m-auto ">
                 <div className="m-3">
-                    <label className="block ">FullName</label>
-                    <input type="text" name="customer" placeholder="Fullname" className="p-2 bg-yellow-50 rounded w-full" required/>
+                    {/* <label className="block ">FullName</label> */}
+                    <input type="text" name="customer" placeholder="Fullname" 
+                         className="w-full px-3 py-2 bg-transparent border-b "
+                         required/>
                 </div>
                 <div  className="m-3">
                     <label className="block ">Phone No.</label>
@@ -52,7 +54,8 @@ function CreateOrder() {
                 </div>
                 <div className="text-center">
                     <input type="hidden" name="cart" value={JSON.stringify(cart)}/>
-                    <button disabled={isSubmitting}  type="submit" className="uppercase bg-yellow-500 p-2 w-1/3 rounded-sm hover:bg-yellow-600 transition-all ease-in hover:text-white">
+                    <button disabled={isSubmitting}  type="submit" className="bg-yellow-400 py-2 px-3 inline-block rounded-full font-semibold text-stone-600 mx-2 hover:bg-yellow-300 tracking-wider uppercase  transition-all duration-300 focus:outline-none
+                 focus:ring focus:ring-yellow-200 focus:ring-offset-2 disabled:cursor-not-allowed hover:shadow-lg ">
                        {isSubmitting?"Placing order....":"Order now"} 
                     </button>
                 </div>

@@ -17,14 +17,15 @@ function SearchQuery() {
   },[orderId])
   return (
     <form onSubmit={HandleSubmit} className="relative">
-      <FaSearch className="absolute search top-2" />
+      {/* <FaSearch className="absolute search top-2" /> */}
       <input
-        className="w-3/6 p-1 rounded bg-yellow-50"
+        className="w-32 sm:w-56 bg-yellow-50 px-3 py-2 rounded-full focus:outline-none focus:ring focus:ring-yellow-200 focus:ring-opacity-30 focus:ring-offset-1 focus:shadow sm:focus:w-96 transition-all duration-300 placeholder:text-stone-300 focus:scale-105"
         type="text"
         value={query}
         onChange={(e) => {
           setQuery(e.currentTarget.value);
         }}
+        placeholder="Search order"
       />
     </form>
   );
