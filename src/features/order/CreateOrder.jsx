@@ -49,7 +49,7 @@ function CreateOrder() {
                     <input type="text" name="address" placeholder="Address" className="p-2 bg-yellow-50 rounded w-full" required/>
                 </div>
                 <div className="flex items-center m-3 ">
-                    <input  id="red-checkbox" type="checkbox" className="w-6 h-6 inline-block border-2  accent-yellow-500 focus:outline-none " name="priority" />
+                    <input  id="red-checkbox" type="checkbox" className="w-6 h-6 inline-block border-2  accent-yellow-500 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2 focus:ring-opacity-50  " name="priority" />
                     <label htmlFor="red-checkbox" className="ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">Want to yo give your order priority?</label>
                 </div>
                 <div className="text-center">
