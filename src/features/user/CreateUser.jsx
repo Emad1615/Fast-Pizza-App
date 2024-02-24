@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Button from "../../ui/Button";
 
 function CreateUser() {
     const [username,setUserName]=useState("")
@@ -15,9 +16,7 @@ function CreateUser() {
              className="px-3 py-2 placeholder:text-stone-300 placeholder:uppercase bg-transparent border-b-2 focus:outline-none focus:border-b-yellow-500 focus:border-b-[3px] rounded-sm  text-sm  md:focus:scale-125 transition-transform  duration-300"/>
             {
                 username &&
-                 <button 
-                 className="bg-yellow-400 py-2 px-3 block rounded-full font-semibold text-stone-600 mx-2 hover:bg-yellow-300 tracking-wider uppercase  transition-all duration-300 focus:outline-none
-                 focus:ring focus:ring-yellow-200 focus:ring-offset-2 disabled:cursor-not-allowed hover:shadow-lg ">Do Order</button>
+                <Button>Do Order</Button>
             }
         </form>
     )
