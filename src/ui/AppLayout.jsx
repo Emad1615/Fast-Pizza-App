@@ -5,12 +5,14 @@ import Loader from "./Loader";
 
 function AppLayout() {
   const Navigation = useNavigation();
-  const isLoading = Navigation.state === "loading";
+   const isLoading = Navigation.state === "loading";
   return (
     <div className="grid grid-rows-[auto_1fr_auto] h-screen">
       <Header />
         <main className="overflow-auto">
-        {isLoading ? <Loader /> : <Outlet />}
+        {/* {isLoading ? <Loader /> : <Outlet />} */}
+        {isLoading && <Loader />  }
+        <Outlet />
         </main>
       <CartOverView />
     </div>

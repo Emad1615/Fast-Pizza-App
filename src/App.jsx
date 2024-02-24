@@ -44,13 +44,13 @@ function App() {
       ],
     },
   ]);
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Sora"],
-      },
-    });
-  }, []);
+  // useEffect(() => {
+  //   WebFont.load({
+  //     google: {
+  //       families: ["Sora"],
+  //     },
+  //   });
+  // }, []);
   return <RouterProvider router={router} />;
 }
 
