@@ -11,7 +11,7 @@ function Cart() {
         <TiArrowBack className="inline-block" /> Back To Menu
       </LinkButton>
       <p className="text-center">Your cart, %NAME%</p>
-      <Button to={"/order/new"}><MdBorderColor className="inline-block" /> Order Pizzas</Button>
+      <Button to={"/order/new"} type={"primary"}><MdBorderColor className="inline-block" /> Order Pizzas</Button>
       <button>
         Clear cart
       </button>

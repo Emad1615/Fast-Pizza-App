@@ -16,7 +16,7 @@ function CreateUser() {
              className="px-3 py-2 placeholder:text-stone-300 placeholder:uppercase bg-transparent border-b-2 focus:outline-none focus:border-b-yellow-500 focus:border-b-[3px] rounded-sm  text-sm  md:focus:scale-125 transition-transform  duration-300"/>
             {
                 username &&
-                <Button>Do Order</Button>
+                <Button type={"primary"}>Do Order</Button>
             }
         </form>
     )
