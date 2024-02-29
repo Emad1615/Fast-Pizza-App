@@ -51,4 +51,28 @@
         focus:border-b-yellow-500 transition-colors duration-300
           placeholder:text-sm placeholder:font-medium focus:placeholder:text-[0px]
   }
+
 }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    background: theme(colors.yellow.500); 
+    border-radius:35%;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+    background: theme(colors.yellow.600); 
+  }
