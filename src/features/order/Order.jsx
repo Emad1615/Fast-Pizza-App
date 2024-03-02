@@ -5,6 +5,7 @@ import {
   formatCurrency,
   formatDate,
 } from "../../utils/helper";
+import OrderItem from "./OrderItem";
 
 function Order() {
   const data = useLoaderData();
@@ -18,43 +19,57 @@ function Order() {
     cart,
   } = data;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
+  console.log(data)
   return (
-    <div className="m-4">
-      <blockquote className="border-l-8 p-5 border-l-yellow-600 w-3/6 m-auto bg-yellow-50">
-        <h3 className="text-center font-extrabold text-xl text-slate-500">
-          Invoice
+    <div className="my-5 mx-10 ">
+        <h3 className="text-center font-extrabold text-xl text-slate-600 uppercase tracking-widest">
+          Order details
         </h3>
-        <h4>Priority: {priority ? " ✅" : " ❌"} </h4>
-        <h4>Status: {status} order</h4>
-        <h4>Estimated time: {formatDate(estimatedDelivery)} </h4>
-        <h4>Order price: {formatCurrency(orderPrice)} </h4>
-        {priority && (
+        <div className="m-4 space-y-6">
+
+        <div className="flex justify-between items-center gap-3 flex-wrap">
+          <h3 className="text-xl font-extrabold uppercase">Order <strong className="text-green-600 px-2 underline">#{id}</strong> Status</h3>
+          <div className="space-x-4">
+             {priority ? <span className="text-red-50 bg-red-500 rounded-full px-4 py-2 uppercase text-sm">priority</span> : null}
+            <span className="text-green-50 bg-green-500 rounded-full px-4 py-2 text-sm uppercase">{status}</span>
+          </div>
+        </div>
+
+      <div className="flex justify-between items-center flex-wrap bg-stone-200  py-4 px-2 rounded-lg">
+        <p className="font-semibold tracking-widest">
+          {
+            deliveryIn>0? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left`:"Order should have arrived"
+          }
+        </p>
+         <p className="font-normal tracking-widest">Estimated time: {formatDate(estimatedDelivery)}</p>
+      </div>
+      <ul className="divide-y divide-stone-200">
+          {
+            cart.map((item,idx)=><OrderItem key={idx} item={item}/>)
+          }
+      </ul>
+     
+      <div className="space-y-3 bg-stone-200  py-4 px-2 rounded-lg ">
+        <h4>Order price: <code className=" font-semibold">{formatCurrency(orderPrice)}</code> </h4>
+          {priority && (
+            <h4>
+              Priority Price:{" "}
+              <code className=" font-semibold">
+                {formatCurrency(priorityPrice)}
+              </code>
+            </h4>
+          )}
           <h4>
-            Priority Price:{" "}
-            <code className="text-red-500">
-              {formatCurrency(priorityPrice)}
+            To pay on delivery:
+            <code className=" font-semibold">
+              {formatCurrency(orderPrice + priorityPrice)}
             </code>
           </h4>
-        )}
-        <h4>
-          To pay on delivery:
-          <code className="text-red-500">
-            {formatCurrency(orderPrice + priorityPrice)}
-          </code>
-        </h4>
-        <h4>
-          {deliveryIn > 0 ? (
-           <strong className="text-red-700 block text-center font-extrabold">
-             {calcMinutesLeft(estimatedDelivery)} minutes left
-           </strong>  
-          ) : (
-            <strong className="text-green-600 block text-center ">
-              Order should have arrived 🍴
-            </strong>
-          )}
-        </h4>
-      </blockquote>
+      </div> 
+
     </div>
+    </div>
+    
   );
 }
 export async function loader({ request, params }) {

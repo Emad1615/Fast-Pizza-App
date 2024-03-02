@@ -41,7 +41,7 @@ function CreateOrder() {
                 </div>
                 <div  className="m-3">
                     <input type="tel" name="phone" placeholder="Phone Number" className="input" required/>
-                    {error?.phone && <p className="text-red-500 font-mono">{error.phone}</p>}
+                    {error?.phone && <p className="text-red-500 font-mono bg-red-100 my-2 px-2 py-1 font-normal rounded">⚠ {error.phone}</p>}
                 </div>
                 <div className="m-3">
                     <input type="text" name="address" placeholder="Address" className="input" required/>
