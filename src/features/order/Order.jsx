@@ -19,7 +19,6 @@ function Order() {
     cart,
   } = data;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
-  console.log(data)
   return (
     <div className="my-5 mx-10 ">
         <h3 className="text-center font-extrabold text-xl text-slate-600 uppercase tracking-widest">
