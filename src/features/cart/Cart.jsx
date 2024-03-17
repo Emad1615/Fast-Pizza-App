@@ -5,6 +5,7 @@ import Button from "../../ui/Button";
 import LinkButton from "../../ui/LinkButton";
 import CartItem from "./CartItem";
 import { formatCurrency } from "../../utils/helper";
+import { useSelector } from "react-redux";
 
 const fakeCart=[
   {
@@ -37,6 +38,7 @@ const fakeCart=[
   },
 ]
 function Cart() {
+  const {username}=useSelector(store=>store.user)
   const cart=fakeCart;
   const netPrice=cart.reduce((sum,arr)=>sum+=arr.totalPrice,(0));
   return (
@@ -45,7 +47,7 @@ function Cart() {
         <TiArrowBack className="inline-block" /> Back To Menu
       </LinkButton>
 
-      <h3 className="text-center text-xl font-semibold">Your cart, Emad Ismail</h3>
+      <h3 className="text-center text-xl font-semibold">Your cart, {username}</h3>
       <ul className="divide-y divide-stone-300 border-b border-b-stone-300">
         {
             cart.map((item,idx)=> <CartItem key={idx} pizza={item}/>)

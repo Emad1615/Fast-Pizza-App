@@ -1,13 +1,20 @@
 import { useState } from "react"
 import Button from "../../ui/Button";
+import { useDispatch } from "react-redux";
+import { updateUser } from "./userSilce";
+import { useNavigate } from "react-router-dom";
 
 function CreateUser() {
-    const [username,setUserName]=useState("")
+    const navigate=useNavigate();
+    const [username,setUserName]=useState("");
+    const dispatch=useDispatch();
     function handleSubmit(e){
         e.preventDefault();
         if(!username) return ;
-        console.log(username)
+        dispatch(updateUser(username));
         setUserName("")
+        navigate("/menu")
+        
     }
     return (
         <form onSubmit={handleSubmit} className="text-center space-y-3 flex flex-col justify-center items-center">

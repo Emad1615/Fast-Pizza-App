@@ -1,6 +1,7 @@
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom"
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
+import { useSelector } from "react-redux";
 const fakeCart = [
     {
       pizzaId: 12,
@@ -26,6 +27,7 @@ const fakeCart = [
   ];
 var isValidPhone =(number)=> /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(number); 
 function CreateOrder() {
+    const {username}=useSelector(store=>store.user)
     const cart=fakeCart
     const error=useActionData();
     const Navigation = useNavigation();
@@ -37,6 +39,7 @@ function CreateOrder() {
                 <div className="m-3">
                     <input type="text" name="customer" placeholder="Fullname" 
                          className="input"
+                         defaultValue={username}
                          required/>
                 </div>
                 <div  className="m-3">
