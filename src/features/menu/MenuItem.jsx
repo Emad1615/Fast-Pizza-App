@@ -1,14 +1,14 @@
-import { useDispatch } from "react-redux";
 import { formatCurrency } from "../../utils/helper";
 import Button from './../../ui/Button'
-import { addItem, decreaseItemQuantity, increaseItemQuantity } from "../cart/cartSlice";
-import {  useSelector} from "react-redux";
+import { addItem, getItemQuantityById } from "../cart/cartSlice";
+import {  useDispatch, useSelector} from "react-redux";
+import DeleteItem from "../cart/DeleteItem";
+import UpdateItemQuantity from "../cart/UpdateItemQuantity";
 function MenuItem({ pizza ,isList}) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
-  const dispatch=useDispatch();
-  const {cart}=useSelector(store=>store.cart)
-  const isSelected=cart.findIndex(item=>item.pizzaId===id);
-  console.log(cart)
+  const dispatch=useDispatch()
+  const itemQuantity=useSelector(getItemQuantityById(id));
+  const isInCart=itemQuantity>0;
   function AddItemToCart(){
     const newItem={
       pizzaId:id,
@@ -19,6 +19,7 @@ function MenuItem({ pizza ,isList}) {
     };
     dispatch(addItem(newItem))
   }
+  console.log(itemQuantity)
   return (
     <>
     {
@@ -33,19 +34,11 @@ function MenuItem({ pizza ,isList}) {
               <p className="font-semibold uppercase text-xs text-red-500">Sold out</p>:
               <p className="font-semibold text-xs text-green-600">{formatCurrency(unitPrice)}</p>
           }
-          {!soldOut? <>
-          {
-            isSelected? <Button disabled={soldOut} type={'small'} onClick={AddItemToCart}>Add To Cart</Button>:
-            <>
-                <div className="flex flex-row gap-3 justify-center items-center">
-                    <button className="bg-yellow-500 py-1 px-[10px] rounded-full" onClick={()=>{dispatch(decreaseItemQuantity(id))}}>-</button>
-                      <span>{cart.find(item=>item.pizzaId===id).quantity}</span>
-                    <button className="bg-yellow-500 py-1 px-[10px] rounded-full" onClick={()=>{dispatch(increaseItemQuantity(id))}}>+</button>
-                </div>
-            </>
-          }
-          </>:null}
-          {/* <Button disabled={soldOut} type={'small'} onClick={AddItemToCart}>Add To Cart</Button> */}
+          {isInCart && <div className="flex items-center gap-3">
+          <UpdateItemQuantity pizzaId={id} currQuantity={itemQuantity}/>
+            <DeleteItem pizzaId={id}/>
+          </div>}
+          {!soldOut && !isInCart && <Button disabled={soldOut} type={'small'} onClick={AddItemToCart}>Add To Cart</Button>}
         </div>
       </div>
     </li>:<li className=" bg-yellow-50">
