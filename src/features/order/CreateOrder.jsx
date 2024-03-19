@@ -22,6 +22,9 @@ function CreateOrder() {
     return (
         <div>
             <h3 className="text-2xl font-semibold text-center mt-5 text-yellow-700">Ready to order ?<br/> Let's go 🍕</h3>
+            {/* <div className="text-center my-4">
+                <Button type={"round"} >Get Location</Button>
+            </div> */}
             <Form method="POST" className="lg:w-1/2 sm:w-full m-auto ">
                 <div className="m-3">
                     <input type="text" name="customer" placeholder="Fullname" 

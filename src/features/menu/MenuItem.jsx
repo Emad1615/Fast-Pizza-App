@@ -19,7 +19,6 @@ function MenuItem({ pizza ,isList}) {
     };
     dispatch(addItem(newItem))
   }
-  console.log(itemQuantity)
   return (
     <>
     {

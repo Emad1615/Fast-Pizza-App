@@ -25,21 +25,25 @@ export function getPosition(){
   })
 }
 
-
-export function usePosition(){
+export function usePosition(defaultPosition=null){
   const [isLoading,setIsLoading]=useState(false);
-  const [latitude,setLatitude]=useState(null)
-  const [longitude,setLongitude]=useState(null)
+  const [position,setPosition]=useState(defaultPosition)
   const [error,setError]=useState("")
- 
   function getPosition(){
-    if(!navigator.geolocation) setError("Browser not support this feature");
+    if(!navigator.geolocation) throw Error("Browser not support this feature");
     setIsLoading(true);
-    navigator.geolocation.getCurrentPosition(pos=>{
-      setLatitude(pos.coords.latitude);
-      setLongitude(pos.coords.longitude);
-      setIsLoading(false)
-    })
+    navigator.geolocation.getCurrentPosition((pos)=>{
+        setPosition({
+          latitude:pos.coords.latitude,
+          longitude:pos.coords.longitude,
+        })
+        setIsLoading(false)
+    },
+    (error)=>{
+      setError(error.message);
+      setIsLoading(false);
+    }
+    )
   }
-  return {isLoading,latitude,longitude,error,getPosition}
+  return {isLoading,error,getPosition,position}
 }
