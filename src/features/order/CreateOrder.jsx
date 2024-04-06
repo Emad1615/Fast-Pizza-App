@@ -1,14 +1,22 @@
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom"
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearItem, getCart, totalPrice } from "../cart/cartSlice";
 import store from './../../store'
 import { useState } from "react";
 import EmptyCart from './../cart/EmptyCart';
 import {formatCurrency} from './../../utils/helper'
+import { fetchAddress } from "../user/userSilce";
+import { MdMyLocation } from "react-icons/md";
+import { LuLoader } from "react-icons/lu";
+
+
 var isValidPhone =(number)=> /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(number); 
 function CreateOrder() {
+    const dispatch=useDispatch();
+    const {position,address,error:errorAddress,status:statusAddress}=useSelector(store=>store.user)
+    const isLoadingAddress=statusAddress==="loading";
     const [withPriority,setWithPriority]=useState(false);
     const {username}=useSelector(store=>store.user)
     const cart=useSelector(getCart)
@@ -18,13 +26,12 @@ function CreateOrder() {
     const totalItemPrice=useSelector(totalPrice);
     const priorityPrice=withPriority?0.2:0;
     const netTotalPrice=totalItemPrice+priorityPrice;
+    console.log(position)
     if(cart.length===0) return <EmptyCart/>
     return (
         <div>
             <h3 className="text-2xl font-semibold text-center mt-5 text-yellow-700">Ready to order ?<br/> Let's go 🍕</h3>
-            {/* <div className="text-center my-4">
-                <Button type={"round"} >Get Location</Button>
-            </div> */}
+           
             <Form method="POST" className="lg:w-1/2 sm:w-full m-auto ">
                 <div className="m-3">
                     <input type="text" name="customer" placeholder="Fullname" 
@@ -36,8 +43,20 @@ function CreateOrder() {
                     <input type="tel" name="phone" placeholder="Phone Number" className="input" required/>
                     {error?.phone && <p className="text-red-500 font-mono bg-red-100 my-2 px-2 py-1 font-normal rounded">⚠ {error.phone}</p>}
                 </div>
-                <div className="m-3">
-                    <input type="text" name="address" placeholder="Address" className="input" required/>
+                <div className="m-3 relative">
+                    <input disabled={isLoadingAddress} defaultValue={address} type="text" name="address" placeholder="Address" className="input" required/>
+                    <span className="absolute right-2 top-3">
+                         <button disabled={isLoadingAddress} onClick={(e)=>{
+                            e.preventDefault();
+                            dispatch(fetchAddress())
+                         }}>
+                            {
+                                isLoadingAddress?<LuLoader className="text-xl"/>
+                                : <MdMyLocation className="text-xl"/>
+                            }
+                         </button>
+                    </span>
+                    {errorAddress && <p className="text-red-500 font-mono bg-red-100 my-2 px-2 py-1 font-normal rounded">⚠ {errorAddress}</p>}
                 </div>
                 <div className="flex items-center m-3 ">
                     <input value={withPriority} onChange={()=>setWithPriority(prevValue=>!prevValue)}  id="red-checkbox" type="checkbox" className="w-6 h-6 inline-block   accent-yellow-500 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2 focus:ring-opacity-50 
@@ -46,7 +65,8 @@ function CreateOrder() {
                 </div>
                 <div className="text-center">
                     <input type="hidden" name="cart" value={JSON.stringify(cart)}/>
-                    <Button disabled={isSubmitting} type={"primary"}>
+                    <input type="hidden" name="position" value={`${position.latitude}-${position.longitude}`}/>
+                    <Button disabled={isSubmitting || isLoadingAddress} type={"primary"}>
                         {isSubmitting?"Placing order....":`Order now ${formatCurrency(netTotalPrice)}`}
                     </Button>
                 </div>
